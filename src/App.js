@@ -1,24 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
+
+/*
+4 important API's
+
+1 signup = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup
+2 login = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login
+3 add notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add
+4 fetch notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add
+
+*/
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Login />
+    </>
   );
 }
 

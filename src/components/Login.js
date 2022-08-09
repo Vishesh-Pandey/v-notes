@@ -1,52 +1,25 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import Account from './Account';
 
 function Login() {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [users, setUsers] = useState([])
+    const [account, setAccount] = useState([])
 
     async function check_username() {
         let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`;
         let data = await fetch(login_api);
         let parsedData = await data.json();
         setUsers(parsedData.items);
-
         for (let i = 0; i < users.length; i++) {
-            if (username === users.username) {
+            if (username === users[i].username) {
                 return true;
             }
         }
         return false;
-    }
-
-    async function login() {
-        if (username === "" || password === "") {
-            alert("Username or password can't be blank!");
-            return;
-        }
-
-        if (!check_username()) {
-            alert("Username do not exist");
-            return;
-        }
-
-        let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`
-        let data = await fetch(login_api)
-        let parsedData = await data.json()
-        setUsers(parsedData.items)
-
-        let flag = 0
-        for (let i = 0; i < users.length; i++) {
-            if (username === users[i].username && password === users[i].password) {
-                alert("Login Successfull")
-                flag = 1
-            }
-        }
-        if (flag == 0) {
-            alert("Incorrect username or password")
-        }
-
     }
 
     async function signUp() {
@@ -61,16 +34,49 @@ function Login() {
             return;
         }
 
-        if (check_username()) {
-            alert("Username not available!");
+        let check = await check_username();
+
+        if (check) {
+            alert("Username not available! Please try again");
             return;
         }
 
         let signup_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup?username=${username}&password=${password}`;
-        let attempt = await fetch(signup_api, { method: 'POST' })
-        console.log(attempt)
-
+        await fetch(signup_api, { method: 'POST' })
         alert("Your account has been created!")
+
+    }
+
+    async function login() {
+
+        if (username === "" || password === "") {
+            alert("Username or password can't be blank!");
+            return;
+        }
+
+        let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`
+        let data = await fetch(login_api)
+        let parsedData = await data.json()
+        setUsers(parsedData.items)
+
+
+
+        let flag = 0
+        for (let i = 0; i < users.length; i++) {
+            if (username === users[i].username && password === users[i].password) {
+                alert("Login Successfull");
+                setAccount([1])
+                flag = 1
+
+            }
+        }
+
+        if (users.length === 0) {
+            alert("Please try again")
+        }
+        else if (flag === 0) {
+            alert("Incorrect username or password")
+        }
 
     }
 
@@ -86,6 +92,12 @@ function Login() {
     return (
         <>
             <div className="container">
+                {
+                    account.map((element) => {
+                        return <Account key={element} account={username} />
+                    })
+                }
+
                 <div className="row text-center py-5">
                     <div className="col-md-6 m-auto">
                         <div className="row bg-secondary bg-opacity-25 rounded-5 py-5">
@@ -102,9 +114,7 @@ function Login() {
                                 <button className="btn btn-secondary bg-opacity-25 w-75" onClick={signUp}>SignUp</button>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </>

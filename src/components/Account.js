@@ -39,6 +39,11 @@ function Account(props) {
             <div className="container bg-info py-5 my-3 rounded">
                 <div className="row">
                     <div className="col">
+                        <h1>Welcome {user}</h1>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
                         {
                             notes.map((element) => {
                                 return <Notes key={element.notes} title={element.title} note={element.notes} />

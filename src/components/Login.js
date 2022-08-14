@@ -9,6 +9,27 @@ function Login() {
     const [users, setUsers] = useState([])
     const [account, setAccount] = useState([])
 
+
+    const login = () => {
+        fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`).then(
+            (response) => {
+                return response.json();
+            }
+        ).then((data) => {
+            let records = data.items;
+            let flag = 0
+            for (let i = 0; i < records.length; i++) {
+                if (records[i].username === username && records[i].password === password) {
+                    setAccount([1])
+                    flag = 1
+                }
+            }
+            if (flag === 0) {
+                alert("Incorrect username or password !")
+            }
+        })
+    }
+
     async function check_username() {
         let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`;
         let data = await fetch(login_api);
@@ -44,39 +65,6 @@ function Login() {
         let signup_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup?username=${username}&password=${password}`;
         await fetch(signup_api, { method: 'POST' })
         alert("Your account has been created!")
-
-    }
-
-    async function login() {
-
-        if (username === "" || password === "") {
-            alert("Username or password can't be blank!");
-            return;
-        }
-
-        let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`
-        let data = await fetch(login_api)
-        let parsedData = await data.json()
-        setUsers(parsedData.items)
-
-
-
-        let flag = 0
-        for (let i = 0; i < users.length; i++) {
-            if (username === users[i].username && password === users[i].password) {
-                alert("Login Successfull");
-                setAccount([1])
-                flag = 1
-
-            }
-        }
-
-        if (users.length === 0) {
-            alert("Please try again")
-        }
-        else if (flag === 0) {
-            alert("Incorrect username or password. If correct click on login again.")
-        }
 
     }
 

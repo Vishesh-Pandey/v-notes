@@ -3,6 +3,8 @@ import './App.css';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import Account from './components/Account';
+import SignUp from './components/SignUp';
+import { Route, Routes } from 'react-router-dom'
 
 
 /*
@@ -18,9 +20,15 @@ import Account from './components/Account';
 function App() {
   return (
     <>
-
       <Navbar />
-      <Login />
+      <Routes>
+        <Route path="/v-notes" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+
+
+      </Routes>
+
+
 
     </>
   );

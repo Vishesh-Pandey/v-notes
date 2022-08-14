@@ -1,32 +1,49 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-import Account from './Account';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
-function Login() {
+function SignUp() {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [account, setAccount] = useState([])
+    const [users, setUsers] = useState([])
 
+    async function check_username() {
+        let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`;
+        let data = await fetch(login_api);
+        let parsedData = await data.json();
+        setUsers(parsedData.items);
+        for (let i = 0; i < users.length; i++) {
+            if (username === users[i].username) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-    const login = () => {
-        fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`).then(
-            (response) => {
-                return response.json();
-            }
-        ).then((data) => {
-            let records = data.items;
-            let flag = 0
-            for (let i = 0; i < records.length; i++) {
-                if (records[i].username === username && records[i].password === password) {
-                    setAccount([1])
-                    flag = 1
-                }
-            }
-            if (flag === 0) {
-                alert("Incorrect username or password !")
-            }
-        })
+    async function signUp() {
+
+        if (!window.confirm("Do you want to create a new account ?")) {
+            alert("Account not created");
+            return;
+        }
+
+        if (username === "" || password === "") {
+            alert("Username or password can't be blank!");
+            return;
+        }
+
+        let check = await check_username();
+
+        if (check) {
+            alert("Username not available! Please try again");
+            return;
+        }
+
+        let signup_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup?username=${username}&password=${password}`;
+        await fetch(signup_api, { method: 'POST' })
+        alert("Your account has been created!")
+
     }
 
     const changingUsername = (event) => {
@@ -37,33 +54,27 @@ function Login() {
         setPassword(event.target.value);
     }
 
-
     return (
         <>
             <div className="container">
-                {
-                    account.map((element) => {
-                        return <Account key={element} account={username} />
-                    })
-                }
 
                 <div className="row text-center py-5">
                     <div className="col-md-6 m-auto">
                         <div className="row bg-secondary bg-opacity-25 rounded-5 py-5">
                             <div className="col-12 my-3">
-                                Login | and start creating your <b> notes...</b> 😃
+                                Sign up | <b>Without</b> email / phone 😃
                             </div>
                             <div className="col-12 my-3">
-                                <input className='rounded border-0 p-2 w-75' type="text" value={username} onChange={changingUsername} placeholder='Enter username' />
+                                <input value={username} onChange={changingUsername} className='rounded border-0 p-2 w-75' type="text" placeholder='Create username' />
                             </div>
                             <div className="col-12 my-3">
-                                <input className='rounded border-0 p-2 w-75' type="text" value={password} onChange={changingPassword} placeholder='Enter password' />
+                                <input value={password} onChange={changingPassword} className='rounded border-0 p-2 w-75' type="text" placeholder='Create password' />
                             </div>
                             <div className="col-12 my-3">
-                                <button className="btn btn-secondary bg-opacity-25 w-75" onClick={login}>Login</button>
+                                <button onClick={signUp} className="btn btn-secondary bg-opacity-25 w-75" >Sign up </button>
                             </div>
                             <div className="col-12 my-3">
-                                <Link to="/signup" className="btn btn-secondary bg-opacity-25 w-75">Create a new account</Link>
+                                <Link to="/v-notes" className="btn btn-secondary bg-opacity-25 w-75" >Account created ? Click here to Login</Link>
                             </div>
                         </div>
                     </div>
@@ -86,4 +97,4 @@ function Login() {
     )
 }
 
-export default Login
+export default SignUp

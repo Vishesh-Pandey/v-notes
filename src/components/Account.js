@@ -18,10 +18,11 @@ function Account(props) {
     }
 
     async function saveNote(user, title, newNote) {
+        setNewNote([])
         let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${props.account}&title=${title}&notes=${newNote}`
         await fetch(new_note_api, { method: 'POST' })
         alert("Your new note is saved!")
-        setNewNote([])
+
     }
 
     async function fetchNotes() {

@@ -13,6 +13,10 @@ function Account(props) {
         setNewNote([1])
     }
 
+    function cancel() {
+        setNewNote([])
+    }
+
     async function saveNote(user, title, newNote) {
         let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${props.account}&title=${title}&notes=${newNote}`
         await fetch(new_note_api, { method: 'POST' })
@@ -61,7 +65,7 @@ function Account(props) {
                     <div className="col">
                         {
                             newNote.map((element) => {
-                                return <NewNote key={element} user="vishesh" save={saveNote} />
+                                return <NewNote key={element} user="vishesh" cancelNote={cancel} save={saveNote} />
                             })
                         }
                     </div>

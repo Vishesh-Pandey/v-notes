@@ -37,6 +37,7 @@ function NewNote(props) {
                         </div>
                     </p>
                     <button onClick={save} className="btn btn-secondary">Save Note </button>
+                    <button onClick={props.cancelNote} className="btn btn-secondary mx-2">Cancel </button>
                 </div>
             </div>
 

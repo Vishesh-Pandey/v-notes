@@ -47,14 +47,14 @@ function Account(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col">
-                        {
-                            notes.map((element) => {
-                                return <Notes key={element.notes} title={element.title} note={element.notes} />
-                            })
-                        }
 
-                    </div>
+                    {
+                        notes.map((element) => {
+                            return <Notes key={element.notes} title={element.title} note={element.notes} />
+                        })
+                    }
+
+
                 </div>
                 <div className="row">
                     <div className="col text-center">

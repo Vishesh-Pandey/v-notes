@@ -9,6 +9,20 @@ function Account(props) {
     const [createSave, setCreateSave] = useState("Create new note")
     const [user, setUser] = useState(props.account)
 
+    async function fetchNotes() {
+        let notes_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch`
+        let data = await fetch(notes_api)
+        let parsedData = await data.json()
+        let allNotes = parsedData.items
+        let userNotes = []
+        allNotes.map((element) => {
+            if (element.username === user) {
+                userNotes.push(element)
+            }
+            setNotes(userNotes)
+        })
+    }
+
     function createNote() {
         setNewNote([1])
     }
@@ -25,19 +39,16 @@ function Account(props) {
 
     }
 
-    async function fetchNotes() {
-        let notes_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch`
-        let data = await fetch(notes_api)
-        let parsedData = await data.json()
-        let allNotes = parsedData.items
-        let userNotes = []
-        allNotes.map((element) => {
-            if (element.username === user) {
-                userNotes.push(element)
-            }
-            setNotes(userNotes)
-        })
+    async function deleteAllNotes() {
+        if (window.confirm("You are deleting all notes !!!")) {
+            await fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete?username=${props.account}`, { method: 'DELETE' });
+            fetchNotes();
+        }
+
+
     }
+
+
 
     return (
         <>
@@ -51,15 +62,18 @@ function Account(props) {
 
                     {
                         notes.map((element) => {
-                            return <Notes key={element.notes} title={element.title} note={element.notes} />
+                            return <Notes key={element.notes} title={element.title} note={element.notes} fetchNotes={fetchNotes} />
                         })
                     }
 
 
                 </div>
                 <div className="row">
-                    <div className="col text-center">
+                    <div className="col-md-6 text-center">
                         <button onClick={fetchNotes} className="btn btn-secondary my-3">View all notes</button>
+                    </div>
+                    <div className="col-md-6 text-center">
+                        <button onClick={deleteAllNotes} className="btn btn-danger my-3">Delete all notes</button>
                     </div>
                 </div>
                 <div className="row">

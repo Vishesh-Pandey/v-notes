@@ -14,6 +14,7 @@ import { Route, Routes } from 'react-router-dom'
 2 login = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login
 3 add notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add
 4 fetch notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch
+5 delete notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete
 
 */
 

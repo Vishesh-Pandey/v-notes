@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigationType } from 'react-router-dom';
 import Account from './Account';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Login(props) {
+
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [account, setAccount] = useState([])
 
 
     const login = () => {
@@ -19,8 +21,9 @@ function Login() {
             let flag = 0
             for (let i = 0; i < records.length; i++) {
                 if (records[i].username === username && records[i].password === password) {
-                    setAccount([1])
                     flag = 1
+                    props.confirmLogin(username);
+                    navigate('/account');
                 }
             }
             if (flag === 0) {
@@ -41,12 +44,6 @@ function Login() {
     return (
         <>
             <div className="container">
-                {
-                    account.map((element) => {
-                        return <Account key={element} account={username} />
-                    })
-                }
-
                 <div className="row text-center py-5">
                     <div className="col-md-6 m-auto">
                         <div className="row bg-secondary bg-opacity-25 rounded-5 py-5">

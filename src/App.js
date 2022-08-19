@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Account from './components/Account';
 import SignUp from './components/SignUp';
 import { Route, Routes } from 'react-router-dom'
+import { useState } from 'react';
 
 
 /*
@@ -19,14 +20,20 @@ import { Route, Routes } from 'react-router-dom'
 */
 
 function App() {
+
+  const [account, setAccount] = useState("")
+
+  const confirmLogin = (account) => {
+    setAccount(account);
+  }
+
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/v-notes" element={<Login />} />
+        <Route path='/account' element={<Account account={account} />} />
+        <Route path="/v-notes" element={<Login confirmLogin={confirmLogin} />} />
         <Route path="/signup" element={<SignUp />} />
-
-
       </Routes>
 
 

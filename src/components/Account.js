@@ -44,20 +44,23 @@ function Account(props) {
             await fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete?username=${props.account}`, { method: 'DELETE' });
             fetchNotes();
         }
-
-
     }
 
+    function deleteAccount() {
+        alert("You can't delete your account !!!")
+    }
 
 
     return (
         <>
             <div className="container bg-info py-5 my-3 rounded">
+
                 <div className="row">
-                    <div className="col">
+                    <div className="col text-center">
                         <h1>Welcome {user}</h1>
                     </div>
                 </div>
+
                 <div className="row">
 
                     {
@@ -72,9 +75,11 @@ function Account(props) {
                     <div className="col-md-6 text-center">
                         <button onClick={fetchNotes} className="btn btn-secondary my-3">View all notes</button>
                     </div>
+
                     <div className="col-md-6 text-center">
-                        <button onClick={deleteAllNotes} className="btn btn-danger my-3">Delete all notes</button>
+                        <button onClick={createNote} className="btn btn-success my-3">{createSave}</button>
                     </div>
+
                 </div>
                 <div className="row">
                     <div className="col">
@@ -85,9 +90,16 @@ function Account(props) {
                         }
                     </div>
                 </div>
+
+            </div>
+
+            <div className="container bg-danger bg-opacity-50 rounded">
                 <div className="row">
-                    <div className="col text-center">
-                        <button onClick={createNote} className="btn btn-secondary my-3">{createSave}</button>
+                    <div className="col-md-6 text-center">
+                        <button onClick={deleteAllNotes} className="btn btn-warning bg-opacity-25 my-3">Delete all notes</button>
+                    </div>
+                    <div className="col-md-6 text-center">
+                        <button onClick={deleteAccount} className="btn btn-danger my-3">Delete Account</button>
                     </div>
                 </div>
             </div>

@@ -32,6 +32,9 @@ function Navbar() {
                                     Sign up
                                 </Link>
                             </li>
+                            <li className='nav-item bg-warning rounded'>
+                                <a className="nav-link" aria-current="page" target="_blank" href="https://vishesh-pandey.github.io/v-images/">Try vImages</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

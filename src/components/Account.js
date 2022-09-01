@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import NewNote from './NewNote';
 import Notes from './Notes';
+import { useNavigate } from 'react-router-dom';
 
 function Account(props) {
 
     const [newNote, setNewNote] = useState([]);
     const [notes, setNotes] = useState([])
-    const [createSave, setCreateSave] = useState("Create new note")
-    const [user, setUser] = useState(props.account)
+    const navigate = useNavigate();
 
     async function fetchNotes() {
         let notes_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch`
@@ -16,7 +16,7 @@ function Account(props) {
         let allNotes = parsedData.items
         let userNotes = []
         allNotes.map((element) => {
-            if (element.username === user) {
+            if (element.username === props.account) {
                 userNotes.push(element)
             }
             setNotes(userNotes)
@@ -46,10 +46,11 @@ function Account(props) {
         }
     }
 
-    function deleteAccount() {
-        alert("You can't delete your account !!!")
+    async function deleteAccount() {
+        alert("Are you sure you want to delete your account ?")
+        await fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/delete_account?username=${props.account}`, { method: 'DELETE' })
+        navigate('/v-notes')
     }
-
 
     return (
         <>
@@ -57,7 +58,7 @@ function Account(props) {
 
                 <div className="row">
                     <div className="col text-center">
-                        <h1>Welcome {user}</h1>
+                        <h1>Welcome {props.account}</h1>
                     </div>
                 </div>
 
@@ -65,7 +66,7 @@ function Account(props) {
 
                     {
                         notes.map((element) => {
-                            return <Notes key={element.notes} title={element.title} note={element.notes} fetchNotes={fetchNotes} />
+                            return <Notes key={element.notes} title={element.title} note={element.notes} account={props.account} fetchNotes={fetchNotes} />
                         })
                     }
 
@@ -77,7 +78,7 @@ function Account(props) {
                     </div>
 
                     <div className="col-md-6 text-center">
-                        <button onClick={createNote} className="btn btn-success my-3">{createSave}</button>
+                        <button onClick={createNote} className="btn btn-success my-3">Create New Note</button>
                     </div>
 
                 </div>

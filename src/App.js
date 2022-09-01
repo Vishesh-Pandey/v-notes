@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
@@ -16,6 +15,8 @@ import { useState } from 'react';
 3 add notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add
 4 fetch notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch
 5 delete notes = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete
+6 delete specific note = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete_note
+7 delete account = https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/delete_account?username=vishesh
 
 */
 

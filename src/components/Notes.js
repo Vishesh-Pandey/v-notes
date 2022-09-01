@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 function Note(props) {
 
 
     async function deleteNote() {
-        alert("You can't delete individual notes !")
+        await fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/delete_note?username=${props.account}&title=${props.title}`, { method: 'DELETE' });
+        props.fetchNotes();
     }
 
 

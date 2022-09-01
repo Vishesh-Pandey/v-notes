@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigationType } from 'react-router-dom';
-import Account from './Account';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Login(props) {

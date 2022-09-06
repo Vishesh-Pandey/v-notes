@@ -15,6 +15,7 @@ function Account(props) {
         let parsedData = await data.json()
         let allNotes = parsedData.items
         let userNotes = []
+        console.log(allNotes)
         allNotes.map((element) => {
             if (element.username === props.account) {
                 userNotes.push(element)
@@ -35,7 +36,7 @@ function Account(props) {
         setNewNote([])
         let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${props.account}&title=${title}&notes=${newNote}`
         await fetch(new_note_api, { method: 'POST' })
-        alert("Your new note is saved!")
+        fetchNotes();
 
     }
 
@@ -54,15 +55,15 @@ function Account(props) {
 
     return (
         <>
-            <div className="container bg-info py-5 my-3 rounded">
+            <div className="container py-3 my-3">
 
-                <div className="row">
+                <div className="row bg-secondary bg-opacity-25 rounded py-2">
                     <div className="col text-center">
                         <h1>Welcome {props.account}</h1>
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row bg-secondary bg-opacity-25 rounded py-2 my-2">
 
                     {
                         notes.map((element) => {

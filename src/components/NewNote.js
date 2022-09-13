@@ -23,7 +23,7 @@ function NewNote(props) {
                 <div className="card-body">
                     <h5 className="card-title"><input type="text" value={title} onChange={handleTitle} placeholder='Write title...' className='w-75 border-0' />
                     </h5>
-                    <div className="card-text">
+                    <div className="card-text my-2">
                         <div className="form-floating">
                             <textarea
                                 value={note}

@@ -1,14 +1,11 @@
 import React from "react";
+import user_logo from "./v_notes_user_icon.png";
 
 function Details(props) {
   return (
     <div className="row bg-secondary bg-opacity-25 rounded p-5">
       <div className="col-md-6 text-center">
-        <img
-          className="w-25 py-3"
-          src="https://lh3.googleusercontent.com/WtFy33_FQYsE41cmmVKApHPDj3QWZWdvnjsivuE7jkZkWEWfbdCY6nBM0Kblxch6-w2JUWMTxciBnayg2opkNFo=w1280"
-          alt="userIcon"
-        />
+        <img className="w-25 py-3" src={user_logo} alt="userIcon" />
         <h1>WELCOME {props.account.toUpperCase()}</h1>
       </div>
       <div className="col-md-6">

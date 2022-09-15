@@ -1,11 +1,10 @@
-import './App.css';
-import Login from './components/Login';
-import Navbar from './components/Navbar';
-import Account from './components/Account';
-import SignUp from './components/SignUp';
-import { Route, Routes } from 'react-router-dom'
-import { useState } from 'react';
-
+import "./App.css";
+import Login from "./components/Login";
+import Navbar from "./components/Navbar";
+import Account from "./components/Account";
+import SignUp from "./components/SignUp";
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
 
 /*
 4 important API's
@@ -22,24 +21,23 @@ import { useState } from 'react';
 */
 
 function App() {
-
-  const [account, setAccount] = useState("")
+  const [account, setAccount] = useState("");
 
   const confirmLogin = (account) => {
     setAccount(account);
-  }
+  };
 
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path='/account' element={<Account account={account} />} />
-        <Route path="/v-notes" element={<Login confirmLogin={confirmLogin} />} />
+        <Route path="/account" element={<Account account={account} />} />
+        <Route
+          path="/v-notes"
+          element={<Login confirmLogin={confirmLogin} />}
+        />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
-
-
-
     </>
   );
 }

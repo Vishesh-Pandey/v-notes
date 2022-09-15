@@ -58,6 +58,7 @@ function Account(props) {
     let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${props.account}&title=${title}&notes=${newNote}`;
     await fetch(new_note_api, { method: "POST" });
     fetchNotes();
+    fetchDetails();
   }
 
   async function deleteAllNotes() {
@@ -67,6 +68,7 @@ function Account(props) {
         { method: "DELETE" }
       );
       fetchNotes();
+      fetchDetails();
     }
   }
 

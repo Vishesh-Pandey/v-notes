@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import brand from "./favicon_ico.png";
 
 function Navbar() {
   const location = useLocation();
@@ -7,6 +8,9 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-secondary bg-opacity-25">
         <div className="container-fluid">
+          <a className="navbar-brand" href="/">
+            <img src={brand} width="40px" alt="" />
+          </a>
           <a className="navbar-brand" href="/">
             v Notes
           </a>
@@ -61,7 +65,7 @@ function Navbar() {
                   rel="noreferrer"
                   href="https://vishesh-pandey.github.io/v-images/"
                 >
-                  Try vImages
+                  vImages
                 </a>
               </li>
             </ul>

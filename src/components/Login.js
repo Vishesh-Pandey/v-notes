@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
 function Login(props) {
   const navigate = useNavigate();
+  const [incorrectPassword, setIncorrectPassword] = useState(false);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +29,8 @@ function Login(props) {
           }
         }
         if (flag === 0) {
-          alert("Incorrect username or password !");
+          setIncorrectPassword(true);
+          // alert("Incorrect username or password !");
         }
       });
   };
@@ -43,6 +46,15 @@ function Login(props) {
   return (
     <>
       <div className="container">
+        <div className="row text-center py-3">
+          <div className="col-md-6 m-auto position-relative px-1">
+            {incorrectPassword == true ? (
+              <Alert message="Incorrect Password Entered" />
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
         <div className="row text-center py-5">
           <div className="col-md-6 m-auto">
             <div className="row bg-secondary bg-opacity-25 rounded-5 py-5">

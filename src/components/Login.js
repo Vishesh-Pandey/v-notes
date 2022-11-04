@@ -47,7 +47,7 @@ function Login(props) {
     <>
       <div className="container">
         <div className="row text-center py-3">
-          <div className="col-md-6 m-auto position-relative px-1">
+          <div className="col-md-6 m-auto position-relative px-1 bg-warning">
             {incorrectPassword == true ? (
               <Alert message="Incorrect Password Entered" />
             ) : (
@@ -104,7 +104,7 @@ function Login(props) {
         <div className="row">
           <div className="col">
             <div
-              className="alert alert-danger d-flex align-items-center"
+              className="alert alert-warning alert-dismissible fade show d-flex align-items-center"
               role="alert"
             >
               <svg
@@ -121,6 +121,12 @@ function Login(props) {
                 Please <b>don't use </b> auto-complete feature of your keyboard.
                 Also username and password is <b>case-sensitive</b>
               </div>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
             </div>
           </div>
         </div>

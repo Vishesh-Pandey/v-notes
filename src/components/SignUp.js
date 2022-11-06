@@ -6,42 +6,53 @@ function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [signUpDone, setSignUpDone] = useState("secondary");
+  const [signUpInfo, setsignUpInfo] = useState("Welcome");
 
   async function check_username() {
-    let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`;
-    let data = await fetch(login_api);
-    let parsedData = await data.json();
-    let existing_users = parsedData.items;
-    for (let i = 0; i < existing_users.length; i++) {
-      if (username === existing_users[i].username) {
-        return true;
+    try {
+      let login_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`;
+      let data = await fetch(login_api);
+      let parsedData = await data.json();
+      let existing_users = parsedData.items;
+      for (let i = 0; i < existing_users.length; i++) {
+        if (username === existing_users[i].username) {
+          return true;
+        }
       }
+      return false;
+    } catch (error) {
+      setsignUpInfo("Internal Server Error");
+      return null;
     }
-    return false;
   }
 
   async function signUp() {
-    if (!window.confirm("Do you want to create a new account ?")) {
-      alert("Account not created");
-      return;
-    }
-
+    setsignUpInfo("Please wait...");
     if (username === "" || password === "") {
-      alert("Username or password can't be blank!");
+      setsignUpInfo("Username or password can't be blank!");
       return;
     }
 
+    // fetching all the username from the database - not secure
     let check = await check_username();
 
+    if (check === null) {
+      setsignUpInfo("Internal Server Error");
+    }
+
     if (check) {
-      alert("Username not available! Please try again");
+      setsignUpInfo("Username not available");
       return;
     }
 
-    let signup_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup?username=${username}&password=${password}`;
-    await fetch(signup_api, { method: "POST" });
-    alert("Your account has been created!");
-    setSignUpDone("success");
+    try {
+      let signup_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/signup?username=${username}&password=${password}`;
+      await fetch(signup_api, { method: "POST" });
+      setsignUpInfo("Your account has been created!");
+      setSignUpDone("success");
+    } catch (error) {
+      setsignUpInfo("Internal Server Error");
+    }
   }
 
   const changingUsername = (event) => {
@@ -78,6 +89,9 @@ function SignUp() {
                   type="text"
                   placeholder="Create password"
                 />
+              </div>
+              <div className="col-12">
+                <p className="text-danger">{signUpInfo}</p>
               </div>
               <div className="col-12 my-3">
                 <button

@@ -1,38 +1,42 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Alert from "./Alert";
 
 function Login(props) {
   const navigate = useNavigate();
-  const [incorrectPassword, setIncorrectPassword] = useState(false);
+  const [loginInfo, setLoginInfo] = useState("Welcome");
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const login = () => {
-    fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let records = data.items;
-        let flag = 0;
-        for (let i = 0; i < records.length; i++) {
-          if (
-            records[i].username === username &&
-            records[i].password === password
-          ) {
-            flag = 1;
-            props.confirmLogin(username);
-            navigate("/account");
+    setLoginInfo("Please wait...");
+    try {
+      fetch(`https://apex.oracle.com/pls/apex/visheshpandey/v_notes_auth/login`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let records = data.items;
+          let flag = 0;
+          for (let i = 0; i < records.length; i++) {
+            if (
+              records[i].username === username &&
+              records[i].password === password
+            ) {
+              flag = 1;
+              props.confirmLogin(username);
+              navigate("/account");
+            }
           }
-        }
-        if (flag === 0) {
-          setIncorrectPassword(true);
-          // alert("Incorrect username or password !");
-        }
-      });
+          if (flag === 0) {
+            setLoginInfo("Incorrect Credentials Entered");
+            // alert("Incorrect username or password !");
+          }
+        });
+    } catch (error) {
+      setLoginInfo("Internal Server Error");
+    }
   };
 
   const changingUsername = (event) => {
@@ -46,15 +50,6 @@ function Login(props) {
   return (
     <>
       <div className="container">
-        <div className="row text-center py-3">
-          <div className="col-md-6 m-auto position-relative px-1 bg-warning">
-            {incorrectPassword == true ? (
-              <Alert message="Incorrect Password Entered" />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
         <div className="row text-center py-5">
           <div className="col-md-6 m-auto">
             <div className="row bg-secondary bg-opacity-25 rounded-5 py-5">
@@ -81,6 +76,10 @@ function Login(props) {
                   required
                 />
               </div>
+              <div className="col-12 ">
+                <p className="text-danger">{loginInfo}</p>
+              </div>
+
               <div className="col-12 my-3">
                 <button
                   className="btn btn-secondary bg-opacity-25 w-75"

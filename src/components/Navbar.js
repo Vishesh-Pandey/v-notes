@@ -59,7 +59,9 @@ function Navbar() {
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link"
+                  className={`nav-link ${
+                    location.pathname === "/account" ? "d-none" : ""
+                  }`}
                   aria-current="page"
                   target="_blank"
                   rel="noreferrer"

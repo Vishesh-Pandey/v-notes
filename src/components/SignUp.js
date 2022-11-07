@@ -86,7 +86,7 @@ function SignUp() {
                   value={password}
                   onChange={changingPassword}
                   className="rounded border-0 p-2 w-75"
-                  type="text"
+                  type="password"
                   placeholder="Create password"
                 />
               </div>

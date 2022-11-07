@@ -1,9 +1,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import brand from "./favicon_ico.png";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const signOut = () => {
+    localStorage.removeItem("username");
+    navigate("/v-notes");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-secondary bg-opacity-25">
@@ -71,19 +79,16 @@ function Navbar() {
                 </a>
               </li>
             </ul>
-            <div className="nav-item">
-              <Link
-                to="/v-notes"
-                className={`${
-                  location.pathname === "/account"
-                    ? "active btn btn-warning"
-                    : "d-none"
-                } nav-link`}
-                aria-current="page"
-              >
-                <button className="btn btn-warning">Sign Out</button>
-              </Link>
-            </div>
+            <button
+              onClick={signOut}
+              className={`${
+                location.pathname === "/account"
+                  ? "active btn btn-warning"
+                  : "d-none"
+              } `}
+            >
+              Sign Out
+            </button>
           </div>
         </div>
       </nav>

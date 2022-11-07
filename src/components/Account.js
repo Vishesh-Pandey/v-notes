@@ -24,9 +24,8 @@ function Account(props) {
     let parsedData = await data.json();
     let allNotes = parsedData.items;
     let userNotes = [];
-    console.log(allNotes);
     allNotes.map((element) => {
-      if (element.username === props.account) {
+      if (element.username === localStorage.getItem("username")) {
         userNotes.push(element);
       }
       setNotes(userNotes);
@@ -34,11 +33,16 @@ function Account(props) {
   }
 
   useEffect(() => {
+    if (!localStorage.getItem("username")) {
+      navigate("/v-notes");
+    }
     fetchDetails();
   }, []);
 
   async function fetchDetails() {
-    let details_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_details/get_details?username=${props.account}`;
+    let details_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_details/get_details?username=${localStorage.getItem(
+      "username"
+    )}`;
     let data = await fetch(details_api);
     let parsedData = await data.json();
     let allDetails = parsedData.items;
@@ -55,7 +59,9 @@ function Account(props) {
 
   async function saveNote(user, title, newNote) {
     setNewNote([]);
-    let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${props.account}&title=${title}&notes=${newNote}`;
+    let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${localStorage.getItem(
+      "username"
+    )}&title=${title}&notes=${newNote}`;
     await fetch(new_note_api, { method: "POST" });
     fetchNotes();
     fetchDetails();

@@ -26,6 +26,7 @@ function Login(props) {
             ) {
               flag = 1;
               props.confirmLogin(username);
+
               navigate("/account");
             }
           }
@@ -69,7 +70,7 @@ function Login(props) {
               <div className="col-12 my-3">
                 <input
                   className="rounded border-0 p-2 w-75"
-                  type="text"
+                  type="password"
                   value={password}
                   onChange={changingPassword}
                   placeholder="Enter password"
@@ -122,7 +123,7 @@ function Login(props) {
               </div>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="alert"
                 aria-label="Close"
               ></button>

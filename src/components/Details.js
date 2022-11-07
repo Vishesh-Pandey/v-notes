@@ -21,7 +21,7 @@ function Details(props) {
         </div>
         <div className="row">
           <div className="col">
-            <table class="table table-secondary table-hover rounded">
+            <table className="table table-secondary table-hover rounded">
               <thead>
                 <tr>
                   <th scope="col">#</th>

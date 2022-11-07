@@ -24,7 +24,8 @@ function App() {
   const [account, setAccount] = useState("");
 
   const confirmLogin = (account) => {
-    setAccount(account);
+    localStorage.setItem("username", account);
+    setAccount(localStorage.getItem("username"));
   };
 
   return (

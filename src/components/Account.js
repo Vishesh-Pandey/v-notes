@@ -6,6 +6,7 @@ import Details from "./Details";
 import { useEffect } from "react";
 
 function Account(props) {
+  const navigate = useNavigate();
   const [newNote, setNewNote] = useState([]);
   const [notes, setNotes] = useState([]);
   const [details, setDetails] = useState([
@@ -16,20 +17,17 @@ function Account(props) {
       notes_deleted: 0,
     },
   ]);
-  const navigate = useNavigate();
 
   async function fetchNotes() {
-    let notes_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch`;
+    // fetching the note of user who as logged in
+    // made changes in api response
+    let notes_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/fetch?username=${localStorage.getItem(
+      "username"
+    )}`;
     let data = await fetch(notes_api);
     let parsedData = await data.json();
     let allNotes = parsedData.items;
-    let userNotes = [];
-    allNotes.map((element) => {
-      if (element.username === localStorage.getItem("username")) {
-        userNotes.push(element);
-      }
-      setNotes(userNotes);
-    });
+    setNotes(allNotes);
   }
 
   useEffect(() => {
@@ -57,7 +55,7 @@ function Account(props) {
     setNewNote([]);
   }
 
-  async function saveNote(user, title, newNote) {
+  async function saveNote(title, newNote) {
     setNewNote([]);
     let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${localStorage.getItem(
       "username"
@@ -91,7 +89,7 @@ function Account(props) {
     <>
       <div className="container py-3 my-3">
         <Details
-          account={props.account}
+          account={localStorage.getItem("username")}
           details={details}
           fetchDetails={fetchDetails}
         />

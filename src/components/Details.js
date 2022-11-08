@@ -6,7 +6,11 @@ function Details(props) {
     <div className="row bg-secondary bg-opacity-25 rounded p-5">
       <div className="col-md-6 text-center">
         <img className="w-25 py-3" src={user_logo} alt="userIcon" />
-        <h1>WELCOME {props.account.toUpperCase()}</h1>
+        <h1>
+          WELCOME{" "}
+          {localStorage.getItem("username") &&
+            localStorage.getItem("username").toUpperCase()}
+        </h1>
       </div>
       <div className="col-md-6">
         <div className="row py-3">

@@ -40,14 +40,13 @@ function Note(props) {
           <div className="card-body">
             <h5 className="card-title">{props.title}</h5>
             <textarea
+              value={props.note}
               style={{ resize: "none" }}
               disabled
               rows={5}
               id="note"
               className="card-text w-100 rounded"
-            >
-              {props.note}
-            </textarea>
+            />
           </div>
         </div>
       </div>

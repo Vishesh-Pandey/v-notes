@@ -5,7 +5,7 @@ function NewNote(props) {
   const [note, setNote] = useState("");
 
   function save() {
-    props.save(props.user, title, note);
+    props.save(title, note);
   }
 
   function handleTitle(event) {

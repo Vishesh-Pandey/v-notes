@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import NewNote from "./NewNote";
 import Notes from "./Notes";
-import { useNavigate } from "react-router-dom";
 import Details from "./Details";
-import { useEffect } from "react";
 
 function Account(props) {
   const navigate = useNavigate();
@@ -18,6 +17,14 @@ function Account(props) {
     },
   ]);
 
+  useEffect(() => {
+    // if user signout then redirect to login page
+    if (!localStorage.getItem("username")) {
+      navigate("/v-notes");
+    }
+    fetchDetails();
+  });
+
   async function fetchNotes() {
     // fetching the note of user who as logged in
     // made changes in api response
@@ -27,15 +34,8 @@ function Account(props) {
     let data = await fetch(notes_api);
     let parsedData = await data.json();
     let allNotes = parsedData.items;
-    setNotes(allNotes);
+    setNotes(allNotes); // now notes contains the notes of user who is logged in
   }
-
-  useEffect(() => {
-    if (!localStorage.getItem("username")) {
-      navigate("/v-notes");
-    }
-    fetchDetails();
-  }, []);
 
   async function fetchDetails() {
     let details_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_details/get_details?username=${localStorage.getItem(
@@ -44,7 +44,7 @@ function Account(props) {
     let data = await fetch(details_api);
     let parsedData = await data.json();
     let allDetails = parsedData.items;
-    setDetails(allDetails);
+    setDetails(allDetails); // This contains the details related to number notes created and deleted
   }
 
   function createNote() {
@@ -60,6 +60,9 @@ function Account(props) {
     let new_note_api = `https://apex.oracle.com/pls/apex/visheshpandey/v_notes_data/add?username=${localStorage.getItem(
       "username"
     )}&title=${title}&notes=${newNote}`;
+    console.log(localStorage.getItem("username"));
+    console.log(title);
+    console.log(newNote);
     await fetch(new_note_api, { method: "POST" });
     fetchNotes();
     fetchDetails();
@@ -124,13 +127,13 @@ function Account(props) {
         </div>
 
         <div className="row bg-secondary bg-opacity-25 rounded py-2 my-2">
-          {notes.map((element) => {
+          {notes.map((element, index) => {
             return (
               <Notes
-                key={element.notes}
+                key={index}
                 title={element.title}
                 note={element.notes}
-                account={props.account}
+                account={localStorage.getItem("username")}
                 fetchNotes={fetchNotes}
               />
             );

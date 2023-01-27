@@ -16,10 +16,10 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-secondary bg-opacity-25">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/v-notes">
             <img src={brand} width="40px" alt="" />
           </a>
-          <a className="navbar-brand" href="/">
+          <a className="navbar-brand" href="/v-notes">
             v Notes
           </a>
           <button

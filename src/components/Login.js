@@ -60,6 +60,7 @@ function Login(props) {
               <div className="col-12 my-3">
                 <input
                   className="rounded border-0 p-2 w-75"
+                  name="username"
                   type="text"
                   value={username}
                   onChange={changingUsername}
@@ -70,6 +71,7 @@ function Login(props) {
               <div className="col-12 my-3">
                 <input
                   className="rounded border-0 p-2 w-75"
+                  name="password"
                   type="password"
                   value={password}
                   onChange={changingPassword}
@@ -84,6 +86,7 @@ function Login(props) {
               <div className="col-12 my-3">
                 <button
                   className="btn btn-secondary bg-opacity-25 w-75"
+                  name="login"
                   onClick={login}
                 >
                   Login

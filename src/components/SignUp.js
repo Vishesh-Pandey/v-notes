@@ -75,6 +75,7 @@ function SignUp() {
               <div className="col-12 my-3">
                 <input
                   value={username}
+                  name="username"
                   onChange={changingUsername}
                   className="rounded border-0 p-2 w-75"
                   type="text"
@@ -84,6 +85,7 @@ function SignUp() {
               <div className="col-12 my-3">
                 <input
                   value={password}
+                  password="password"
                   onChange={changingPassword}
                   className="rounded border-0 p-2 w-75"
                   type="password"
@@ -97,6 +99,7 @@ function SignUp() {
                 <button
                   onClick={signUp}
                   className="btn btn-secondary bg-opacity-25 w-75"
+                  name="signup"
                 >
                   Sign up{" "}
                 </button>

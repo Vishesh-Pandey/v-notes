@@ -94,6 +94,7 @@ function Login(props) {
               </div>
               <div className="col-12 my-3">
                 <Link
+                  name="create-account"
                   to="/signup"
                   className="btn btn-secondary bg-opacity-25 w-75"
                 >

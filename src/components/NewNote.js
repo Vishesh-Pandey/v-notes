@@ -24,6 +24,7 @@ function NewNote(props) {
           <h5 className="card-title">
             <input
               type="text"
+              name="title"
               value={title}
               onChange={handleTitle}
               placeholder="Write title..."
@@ -33,6 +34,7 @@ function NewNote(props) {
           <div className="card-text my-2">
             <div className="form-floating">
               <textarea
+                name="note"
                 value={note}
                 onChange={handleNote}
                 className="form-control"
@@ -43,10 +45,14 @@ function NewNote(props) {
               <label htmlFor="floatingTextarea2">Notes...</label>
             </div>
           </div>
-          <button onClick={save} className="btn btn-secondary">
+          <button name="save-note" onClick={save} className="btn btn-secondary">
             Save Note{" "}
           </button>
-          <button onClick={props.cancelNote} className="btn btn-secondary mx-2">
+          <button
+            name="cancel-note"
+            onClick={props.cancelNote}
+            className="btn btn-secondary mx-2"
+          >
             Cancel{" "}
           </button>
         </div>

@@ -107,6 +107,7 @@ function SignUp() {
               <div className="col-12 my-3">
                 <Link
                   to="/v-notes"
+                  name="login"
                   className={`btn btn-${signUpDone} bg-opacity-25 w-75`}
                 >
                   Account created ? Click here to Login

@@ -99,13 +99,21 @@ function Account(props) {
 
         <div className="row">
           <div className="col-md-6 text-center">
-            <button onClick={createNote} className="btn btn-success my-3">
+            <button
+              name="create-new-note"
+              onClick={createNote}
+              className="btn btn-success my-3"
+            >
               Create New Note
             </button>
           </div>
 
           <div className="col-md-6 text-center">
-            <button onClick={fetchNotes} className="btn btn-secondary my-3">
+            <button
+              onClick={fetchNotes}
+              name="view-all-notes"
+              className="btn btn-secondary my-3"
+            >
               View all notes
             </button>
           </div>

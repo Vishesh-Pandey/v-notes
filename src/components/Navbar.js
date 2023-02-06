@@ -80,6 +80,7 @@ function Navbar() {
               </li>
             </ul>
             <button
+              name="signout"
               onClick={signOut}
               className={`${
                 location.pathname === "/account"

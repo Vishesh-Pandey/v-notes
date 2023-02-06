@@ -84,6 +84,7 @@ function SignUp() {
               </div>
               <div className="col-12 my-3">
                 <input
+                  name="password"
                   value={password}
                   password="password"
                   onChange={changingPassword}
